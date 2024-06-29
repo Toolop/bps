@@ -72,6 +72,7 @@ const login = async (request, h) => {
       response.code(401);
     }
   } catch (err) {
+    console.log(err);
     response = h.response({
       code: 400,
       status: "Bad Request",

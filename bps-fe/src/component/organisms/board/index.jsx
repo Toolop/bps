@@ -36,7 +36,7 @@ const BoardLayout = () => {
           <Header handleClick={toggle} />
 
           <main className="relative overflow-y-auto">
-            <div className="max-w-screen-2xl lg:ml-[-10px] lg:mt-[-15px]  h-fit p-4 md:p-6 2xl:p-7 overflow-y-auto -z-50 ">
+            <div className=" lg:ml-[-10px] lg:mt-[-15px]  h-fit p-4 md:p-6 2xl:p-7 overflow-y-auto -z-50 ">
               <Outlet />
             </div>
           </main>

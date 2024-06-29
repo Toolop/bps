@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Outlet, useNavigate } from "react-router-dom";
-import Header from "../../molecules/header";
+import HeaderTV from "../../molecules/headerTv";
 
 const BoardTvLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -28,7 +28,7 @@ const BoardTvLayout = () => {
     <div className="w-screen h-screen">
       <div className="relative flex h-screen overflow-hidden ">
         <div className="flex flex-1 flex-col overflow-x-hidden">
-          <Header handleClick={toggle} />
+          <HeaderTV handleClick={toggle} />
 
           <main className="relative overflow-y-auto">
             <div className=" lg:ml-[-10px] lg:mt-[-15px]  h-fit p-4 md:p-6 2xl:p-7 overflow-y-auto -z-50 ">

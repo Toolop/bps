@@ -19,6 +19,7 @@ function App() {
       <Route path="/" element={<MiddlewareUser />}></Route>
       <Route path="staff" element={<BoardLayout />}>
         <Route path="dashboard" element={<DashboardAdmin />} />
+        <Route path="anggota" element={<AnggotaTeamPage />} />
       </Route>
       <Route path="tv" element={<BoardTvLayout />}>
         <Route path="dashboard" element={<DashboardTv />} />

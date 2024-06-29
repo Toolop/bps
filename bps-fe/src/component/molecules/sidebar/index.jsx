@@ -5,6 +5,7 @@ import { PropTypes } from "prop-types";
 import useScreenSize from "../../../hooks/screensize";
 import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { RiTeamFill } from "react-icons/ri";
 
 const Sidebar = ({ sidebarOpen, handleClick }) => {
   const ref = useRef(null);
@@ -79,7 +80,7 @@ const Sidebar = ({ sidebarOpen, handleClick }) => {
       <ul className=" flex flex-col gap-3">
         <li className="w-full">
           <Link
-            to={"/client/dashboard"}
+            to={"/staff/dashboard"}
             onClick={() => handleClick(false)}
             className={
               routeName == "Dashboard"
@@ -96,27 +97,28 @@ const Sidebar = ({ sidebarOpen, handleClick }) => {
             <p className={`  ${isExpand ? "" : " opacity-0 hidden"}`}>Home</p>
           </Link>
         </li>
-        <li className="w-full">
-          <Link
-            onClick={() => handleClick(false)}
-            to={"/client/orders"}
-            className={
-              routeName == "Orders"
-                ? `p-2 h-[33px] flex justify-start rounded items-center gap-3 bg-primary text-white hover:bg-[#DDE3F1] no-underline`
-                : `p-2 h-[33px] flex justify-start rounded items-center gap-3 text-[#C6C6C6] hover:bg-[#DDE3F1] no-underline`
-            }
-          >
-            <FaListAlt
-              className={`w-[24px] text-center z-2 duration-300 ${
-                isExpand ? "translate-x-0" : "translate-x-1"
-              }`}
-            />
-
-            <p className={`  ${isExpand ? "" : " opacity-0 hidden"}`}>
-              Projects
-            </p>
-          </Link>
-        </li>
+        <ul className=" flex flex-col gap-3">
+          <li className="w-full">
+            <Link
+              to={"/staff/anggota"}
+              onClick={() => handleClick(false)}
+              className={
+                routeName == "anggota"
+                  ? `p-2 h-[33px] flex justify-start rounded items-center gap-3 bg-primary text-white hover:bg-[#DDE3F1] no-underline`
+                  : `p-2 h-[33px] flex justify-start rounded items-center gap-3 text-[#C6C6C6] hover:bg-[#DDE3F1] no-underline`
+              }
+            >
+              <RiTeamFill
+                className={`w-[24px] text-center z-2 duration-300 ${
+                  isExpand ? "translate-x-0" : "translate-x-1"
+                }`}
+              />
+              <p className={`  ${isExpand ? "" : " opacity-0 hidden"}`}>
+                Anggota Tim
+              </p>
+            </Link>
+          </li>
+        </ul>
       </ul>
     </div>
   );
