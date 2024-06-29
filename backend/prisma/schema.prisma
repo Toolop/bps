@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id        String    @id
+  username  String
+  password  String
+  email     String
+  nama      String
+  team      team?     @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  teamId    String?
+  role      role?     @relation(fields: [roleId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  roleId    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  status    Int       @default(0)
+}
+
+model team {
+  id           String         @id
+  name         String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime?      @updatedAt
+  user         user[]
+  scheduleTeam scheduleTeam[]
+}
+
+model role {
+  id        String    @id
+  name      String
+  user      user[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model scheduleTeam {
+  id         Int       @id @default(autoincrement())
+  team       team?     @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  teamId     String
+  schedule   schedule? @relation(fields: [scheduleId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  scheduleId String
+  createdAt  DateTime  @default(now())
+}
+
+model schedule {
+  id           String         @id
+  name         String
+  file         String?
+  link         String?
+  deadline     DateTime       @db.Date
+  keterangan   String
+  startEvent   String
+  endEvent     String
+  scheduleTeam scheduleTeam[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime?      @updatedAt
+}
+
+model typeSchedule {
+  id   Int    @id @default(autoincrement())
+  name String
+}

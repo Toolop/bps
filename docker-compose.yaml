@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:stable
+    restart: always
+    tty: true
+    ports:
+      - "8091:8091"
+    volumes:
+      - ./bps-fe/dist:/usr/share/nginx/html/bps
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+       - bpsbe
+       - build_fe_BPS
+
+  bpsbe:
+    build:
+      context: ./backend
+    working_dir: /usr/src/bps
+    restart: unless-stopped
+    command: npm run start
+    volumes:
+      - .env/:/usr/src/bps/.env
+    ports:
+      - 8090:8090
+    depends_on:
+      - postgresdb
+
+  postgresdb:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRESDB_USER}
+      - POSTGRES_PASSWORD=${POSTGRESDB_PASSWORD}
+      - POSTGRES_DB=${POSTGRESDB_BPS}
+    ports:
+      - ${POSTGRESDB_PORT}:5432
+    stdin_open: true
+    tty: true
+    volumes:
+      - db_data:/var/lib/postgresql/data:rw
+
+  build_fe_BPS:
+    image: node:20
+    working_dir: /bps
+    volumes:
+      - ./bps-fe:/bps
+      - .env/:/bps/.env
+    command: bash -c 'npm install --unsafe-perm && npm run build'
+
+volumes:
+  db_data:
