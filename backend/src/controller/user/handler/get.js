@@ -2,28 +2,60 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient({});
 
 const getUsers = async (request, h) => {
-  let { page, size, search } = request.query;
+  let { page, size, search, team, role } = request.query;
   let response = "";
   let result = "";
   let totalPage = 0;
+  let totalRows;
 
   try {
     page = page || 1;
     size = size || 10;
-    search = search || undefined;
 
     result = await prisma.user.findMany({
       include: { team: true, role: true },
       orderBy: { createdAt: "desc" },
       where: {
-        team: {
-          id: search,
-        },
+        OR: [
+          { teamId: team },
+          {
+            nama: {
+              contains: search,
+            },
+          },
+          {
+            role: {
+              name: {
+                contains: role,
+              },
+            },
+          },
+        ],
       },
       skip: (page - 1) * size,
       take: size,
     });
-    const totalRows = await prisma.user.count({});
+
+    totalRows = await prisma.user.count({
+      where: {
+        OR: [
+          { teamId: team },
+          {
+            nama: {
+              contains: search,
+            },
+          },
+          {
+            role: {
+              name: {
+                contains: role,
+              },
+            },
+          },
+        ],
+      },
+    });
+
     totalPage = Math.ceil(totalRows / size);
 
     response = h.response({

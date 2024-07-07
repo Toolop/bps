@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { endpoint } from "../../helper/api/baseUrl";
 
-export const GetAllSchedulesHooks = (props) => {
+export const GetAllSchedulesHooks = (props, today) => {
   const token = localStorage.getItem("token");
   const [getSchedules, setSchedules] = useState([]);
   const [change, setChange] = useState(false);
@@ -29,7 +29,7 @@ export const GetAllSchedulesHooks = (props) => {
   const getSchedulesData = async () => {
     await axios
       .get(
-        `${endpoint}/all-schedules?page=${active}&size=${props}&search=${search}}}`,
+        `${endpoint}/all-schedules?page=${active}&size=${props}&search=${search}&now=${today}`,
         {
           headers: {
             Authorization: token,

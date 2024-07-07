@@ -9,6 +9,8 @@ export const GetUsersHooks = (props) => {
   const [active, setActive] = useState(1);
   const [change, setChange] = useState(false);
   const [search, setSearch] = useState("");
+  const [tim, setTim] = useState("");
+  const [role, setRole] = useState("");
 
   const SetChange = () => {
     setChange(!change);
@@ -28,11 +30,14 @@ export const GetUsersHooks = (props) => {
 
   const getUsersData = async () => {
     await axios
-      .get(`${endpoint}/users?page=${active}&limit=${props}&search=${search}`, {
-        headers: {
-          Authorization: token,
-        },
-      })
+      .get(
+        `${endpoint}/users?page=${active}&limit=${props}&search=${search}&team=${tim}&role=${role}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
       .then((res) => {
         setUsers(res.data.data);
         setPaging(res.data);
@@ -44,7 +49,7 @@ export const GetUsersHooks = (props) => {
 
   useEffect(() => {
     getUsersData();
-  }, [active, change, search]);
+  }, [active, change, search, tim, role]);
   return {
     getUsers,
     prev,
@@ -55,5 +60,7 @@ export const GetUsersHooks = (props) => {
     setActive,
     SetChange,
     setSearch,
+    setTim,
+    setRole,
   };
 };

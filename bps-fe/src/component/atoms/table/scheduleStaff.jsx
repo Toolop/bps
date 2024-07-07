@@ -1,13 +1,10 @@
-import { MdEdit, MdRemoveRedEye } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { GetUsersHooks } from "../../../hooks/Userhooks/GetUser";
 import { endpoint } from "../../../helper/api/baseUrl";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import TeamEditPopUp from "../../molecules/popup/TeamEditPopUp";
 import { GetSchedulesHooks } from "../../../hooks/Schedule/getScheduleHooks";
-import { GetAllSchedulesHooks } from "../../../hooks/Schedule/getAllScheduleHooks";
 import moment from "moment";
 import "moment/locale/id"; // without this line it didn't work
 import { IoMdDownload, IoMdPersonAdd } from "react-icons/io";
@@ -16,7 +13,13 @@ import { Link } from "react-router-dom";
 import { FaFile } from "react-icons/fa";
 import { BiLogoZoom } from "react-icons/bi";
 
-export const ScheduleTable = ({ showModal, search, page, typePage, today }) => {
+export const ScheduleStaffTable = ({
+  showModal,
+  search,
+  page,
+  typePage,
+  today,
+}) => {
   const [dataSchedule, setdataSchedule] = useState({});
   const [typePopup, setTypePopup] = useState("");
   const [modalEdit, setModalEdit] = useState(false);
@@ -29,7 +32,7 @@ export const ScheduleTable = ({ showModal, search, page, typePage, today }) => {
     setActive,
     SetChange,
     setSearch,
-  } = GetAllSchedulesHooks(page, today);
+  } = GetSchedulesHooks(page, today);
 
   const onDelete = (id) => {
     Swal.fire({
@@ -306,7 +309,7 @@ export const ScheduleTable = ({ showModal, search, page, typePage, today }) => {
         showModal={modalEdit}
         setType={typePopup}
         setShowModal={setModalEdit}
-        setChange={SetChange}
+        SetChange={SetChange}
       />
     </div>
   );

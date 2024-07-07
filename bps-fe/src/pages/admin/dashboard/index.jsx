@@ -27,6 +27,7 @@ const DashboardAdmin = () => {
                 showModal={showModal}
                 search={search}
                 page={10}
+                today={1}
                 typePage={"dashboard"}
               />
             </div>
@@ -78,6 +79,7 @@ const DashboardAdmin = () => {
               showModal={showModal}
               search={search}
               page={10}
+              today={0}
               typePage={"dashboard"}
             />
           </div>

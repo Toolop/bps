@@ -6,7 +6,7 @@ const ScheduleEditPopUp = ({
   showModal,
   setShowModal,
   data,
-  SetChange,
+  setChange,
   setType,
 }) => {
   return (
@@ -27,7 +27,7 @@ const ScheduleEditPopUp = ({
                     <EditScheduleForm
                       setShowModal={setShowModal}
                       data={data}
-                      SetChange={SetChange}
+                      setChange={setChange}
                     />
                   ) : (
                     <FormPersonilAssignScheduleTeam

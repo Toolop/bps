@@ -27,20 +27,9 @@ const UserAdmin = () => {
             </div>
             <input
               type="search"
-              // onChange={(event) => setSeacrh(event.target.value)}
-              className="bg-[#E8F2FB] block w-full p-2 ps-9 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-primary"
-              placeholder="Search Name"
-            />
-          </div>
-          <div className="relative">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <IoIosSearch />
-            </div>
-            <input
-              type="search"
               onChange={(event) => setSearch(event.target.value)}
               className="bg-[#E8F2FB] block w-full p-2 ps-9 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-primary"
-              placeholder="Search Email"
+              placeholder="Search User"
             />
           </div>
           <button

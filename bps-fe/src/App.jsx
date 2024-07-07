@@ -11,6 +11,7 @@ import SchedulePage from "./pages/admin/schedule";
 import AnggotaTeamPage from "./pages/admin/aggotateam";
 import { DashboardTv } from "./pages/tv/dashboard";
 import BoardTvLayout from "./component/organisms/boardTv";
+import StaffDashboard from "./pages/staff/dashboard/dashboard";
 function App() {
   return (
     <Routes>
@@ -18,7 +19,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/" element={<MiddlewareUser />}></Route>
       <Route path="staff" element={<BoardLayout />}>
-        <Route path="dashboard" element={<DashboardAdmin />} />
+        <Route path="dashboard" element={<StaffDashboard />} />
         <Route path="anggota" element={<AnggotaTeamPage />} />
       </Route>
       <Route path="tv" element={<BoardTvLayout />}>

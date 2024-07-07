@@ -2,15 +2,21 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient({});
 
 const getSchedules = async (request, h) => {
-  let { page, size } = request.query;
+  let { page, size, now } = request.query;
   let response = "";
   let result = "";
   let totalPage = 0;
   const { team } = request.auth.credentials;
+  const { id } = request.auth.credentials;
 
   try {
     page = parseInt(page) || 1;
     size = parseInt(size) || 10;
+    if (now != 0) {
+      now = new Date();
+    } else {
+      now = undefined;
+    }
 
     result = await prisma.schedule.findMany({
       include: {
@@ -26,9 +32,20 @@ const getSchedules = async (request, h) => {
         },
       },
       where: {
-        scheduleTeam: {
-          some: { teamId: team },
-        },
+        OR: [
+          {
+            scheduleTeam: {
+              some: { teamId: team },
+            },
+          },
+          {
+            scheduleUser: {
+              some: { userId: id },
+            },
+          },
+        ],
+
+        deadline: now,
       },
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * size,

@@ -12,7 +12,8 @@ const prisma = new PrismaClient({});
 
 const updateSchedule = async (request, h) => {
   const { id } = request.params;
-  const { name, link, deadline, typeScheduleId } = request.payload;
+  let { name, link, deadline, keterangan, startEvent, endEvent } =
+    request.payload;
   let { file } = request.payload;
   let result = "";
   let response = "";
@@ -30,19 +31,33 @@ const updateSchedule = async (request, h) => {
       } else {
         file = getScheduleId.file;
       }
-      const newSchedule = schduleUpdateEntity(
-        name,
-        file,
-        link,
-        dateDateline,
-        parseInt(typeScheduleId)
-      );
+
+      if (name == null || !name) {
+        name = getScheduleId.name;
+      }
+      if (link == null || !link) {
+        link = getScheduleId.link;
+      }
+      if (deadline == null || !deadline) {
+        deadline = getScheduleId.deadline;
+      } else {
+        deadline = new Date(deadline).toISOString();
+      }
+      if (keterangan == null || !keterangan) {
+        keterangan = getScheduleId.keterangan;
+      }
+      if (startEvent == null || !startEvent) {
+        startEvent = getScheduleId.startEvent;
+      }
+      if (endEvent == null || !endEvent) {
+        endEvent = getScheduleId.endEvent;
+      }
 
       result = await prisma.schedule.update({
         where: {
           id: id,
         },
-        data: newSchedule,
+        data: { name, file, link, deadline, keterangan, startEvent, endEvent },
       });
 
       if (result != null) {
@@ -71,6 +86,7 @@ const updateSchedule = async (request, h) => {
       response.code(404);
     }
   } catch (err) {
+    console.log(err);
     response = h.response({
       code: 400,
       status: "Bad Request",

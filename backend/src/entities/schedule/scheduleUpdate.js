@@ -4,7 +4,6 @@ const schduleUpdateEntity = (name, file, link, deadline, typeScheduleId) => {
     file,
     link,
     deadline,
-    typeScheduleId,
   };
 };
 module.exports = { schduleUpdateEntity };

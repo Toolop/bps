@@ -37,7 +37,7 @@ const AnggotaTeamPage = () => {
       <div className="flex w-full h-full">
         <UsersTable
           showModal={showModal}
-          search={search}
+          tim={search}
           page={10}
           type="anggota"
         />

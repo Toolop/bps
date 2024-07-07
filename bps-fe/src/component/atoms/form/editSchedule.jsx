@@ -7,7 +7,7 @@ import { endpoint } from "../../../helper/api/baseUrl";
 import { scheduleType } from "../../../data/typeSchedule";
 import { FileUploader } from "react-drag-drop-files";
 
-const EditScheduleForm = ({ data, setShowModal, typePage }) => {
+const EditScheduleForm = ({ data, setShowModal, typePage, setChange }) => {
   const {
     register,
     handleSubmit,
@@ -68,7 +68,7 @@ const EditScheduleForm = ({ data, setShowModal, typePage }) => {
     setValue("deadline", data.deadline);
     setValue("startEvent", data.startEvent);
     setValue("endEvent", data.endEvent);
-    setValue("deadline", data.deadline);
+    setValue("deadline", new Date(data.deadline));
     setValue("link", data.link);
   }, []);
 
@@ -96,7 +96,6 @@ const EditScheduleForm = ({ data, setShowModal, typePage }) => {
           type="date"
           className="border rounded-lg w-full py-3 px-2 text-gray-700 leading-tight focus:invalid:border-pink-500 "
           {...register("deadline", { required: true, maxLength: 80 })}
-          placeholder="Name"
         />
         {errors.deadline && (
           <p className="text-red-600">Tanggal Kegiatan perlu diisi</p>

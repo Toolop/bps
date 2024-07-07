@@ -31,7 +31,12 @@ const SchedulePage = () => {
         </div>
       </div>
       <div className="flex w-full h-full">
-        <ScheduleTable showModal={showModal} search={search} page={10} />
+        <ScheduleTable
+          showModal={showModal}
+          search={search}
+          page={10}
+          today={0}
+        />
       </div>
       <ScheduleAddPopUp
         showModal={showModal}

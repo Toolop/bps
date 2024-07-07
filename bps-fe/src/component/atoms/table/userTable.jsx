@@ -7,7 +7,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import UserEditPopUp from "../../molecules/popup/UserEdit";
 
-export const UsersTable = ({ showModal, search, page, type }) => {
+export const UsersTable = ({ showModal, search, page, type, tim, role }) => {
   const [dataUser, setDataUser] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
   const {
@@ -19,12 +19,16 @@ export const UsersTable = ({ showModal, search, page, type }) => {
     setActive,
     SetChange,
     setSearch,
+    setTim,
+    setRole,
   } = GetUsersHooks(page);
 
   useEffect(() => {
     SetChange(showModal);
     setSearch(search);
-  }, [showModal, search]);
+    setTim(tim);
+    setRole(role);
+  }, [showModal, search, tim, role]);
 
   const submitUserStatus = async (item) => {
     try {
