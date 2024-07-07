@@ -8,7 +8,7 @@ import { endpoint } from "../../../helper/api/baseUrl";
 import { scheduleType } from "../../../data/typeSchedule";
 import { FileUploader } from "react-drag-drop-files";
 
-const ScheduleForm = ({ setShowModal, typePage, setChange }) => {
+const ScheduleForm = ({ setShowModal, typePage }) => {
   const {
     register,
     handleSubmit,
@@ -45,7 +45,6 @@ const ScheduleForm = ({ setShowModal, typePage, setChange }) => {
             icon: "success",
           });
           setShowModal();
-          setChange();
         })
         .catch((err) => {
           reset({
