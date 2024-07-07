@@ -306,7 +306,7 @@ export const ScheduleTable = ({ showModal, search, page, typePage, today }) => {
         showModal={modalEdit}
         setType={typePopup}
         setShowModal={setModalEdit}
-        setChange={SetChange}
+        SetChange={SetChange}
       />
     </div>
   );
