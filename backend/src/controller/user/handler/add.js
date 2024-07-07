@@ -36,7 +36,7 @@ const addUser = async (request, h) => {
         roleId,
         nip,
         ttl,
-        status
+        parseInt(status)
       );
 
       result = await prisma.user.create({
