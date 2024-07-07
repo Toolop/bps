@@ -123,7 +123,7 @@ export const UsersTable = ({ showModal, search, page, type }) => {
       {getUsers ? (
         <table className="items-center bg-transparent w-full border-collapse overflow-x-auto">
           <thead>
-            <tr className="border-b-2 border-black">
+            <tr className="border-b-2 border-background">
               <th className="px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-left">
                 Username
               </th>
@@ -132,6 +132,12 @@ export const UsersTable = ({ showModal, search, page, type }) => {
               </th>
               <th className="px-6  text-gray-700 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-center">
                 Email
+              </th>
+              <th className="px-6  text-gray-700 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-center">
+                NIP
+              </th>
+              <th className="px-6  text-gray-700 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-center">
+                Tempat Tanggal Lahir
               </th>
               <th
                 className={`px-6  text-gray-700 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-center ${
@@ -179,6 +185,12 @@ export const UsersTable = ({ showModal, search, page, type }) => {
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-pre-line p-4 text-center ">
                   {item.email}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-pre-line p-4 text-center ">
+                  {item.nip}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-pre-line p-4 text-center ">
+                  {item.ttl}
                 </td>
                 <td
                   className={`border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-pre-line p-4 text-center  ${

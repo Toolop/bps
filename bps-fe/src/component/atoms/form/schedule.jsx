@@ -66,7 +66,7 @@ const ScheduleForm = ({ setShowModal, typePage, setChange }) => {
 
   return (
     <form
-      className="w-full flex flex-col gap-5 overflow-auto"
+      className="w-full h-fit flex flex-col gap-5  overflow-y-scroll"
       onSubmit={handleSubmit(submitSchedule)}
     >
       <div className="w-full">

@@ -1,21 +1,21 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient({});
 
-const getScheduleTeams = async (request, h) => {
+const getScheduleUsers = async (request, h) => {
   let response = "";
   let result = "";
 
   try {
     const { scheduleId } = request.query || undefined;
 
-    result = await prisma.scheduleTeam.findMany({
+    result = await prisma.scheduleUser.findMany({
       include: {
-        team: true,
+        user: true,
       },
       where: {
         scheduleId,
       },
-      orderBy: { id: "desc" },
+      orderBy: { scheduleId: "desc" },
     });
 
     response = h.response({
@@ -41,5 +41,5 @@ const getScheduleTeams = async (request, h) => {
 };
 
 module.exports = {
-  getScheduleTeams,
+  getScheduleUsers,
 };

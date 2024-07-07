@@ -38,6 +38,12 @@ module.exports = [
     handler: updateUser,
   },
   {
+    method: "PATCH",
+    path: `${prefix}/user-profile/{id}`,
+    config: { auth: false },
+    handler: updateUser,
+  },
+  {
     method: "DELETE",
     path: `${prefix}/users/{id}`,
     config: { auth: false },

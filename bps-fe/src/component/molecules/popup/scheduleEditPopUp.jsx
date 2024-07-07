@@ -1,5 +1,6 @@
+import { FormAssignScheduleTeam } from "../../atoms/form/assignSchedule";
 import EditScheduleForm from "../../atoms/form/editSchedule";
-import EditTeamForm from "../../atoms/form/editTeam";
+import { FormPersonilAssignScheduleTeam } from "../../atoms/form/personilSchedule";
 
 const ScheduleEditPopUp = ({
   showModal,
@@ -15,17 +16,33 @@ const ScheduleEditPopUp = ({
           <div className="flex h-fit w-full lg:w-1/2 justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 w-fit m-auto">
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none max-w-xl">
               <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded ">
-                <h5>Add Schedule</h5>
+                <h5>Add {setType}</h5>
                 <button className="w-100 h-100" onClick={() => setShowModal()}>
                   <span className="text-black p-5 rounded-full">x</span>
                 </button>
               </div>
               <div className="relative p-6 flex-auto mt-[-10px] w-full">
-                <EditScheduleForm
-                  setShowModal={setShowModal}
-                  data={data}
-                  SetChange={SetChange}
-                />
+                {setType != "assign" ? (
+                  setType != "personil" ? (
+                    <EditScheduleForm
+                      setShowModal={setShowModal}
+                      data={data}
+                      SetChange={SetChange}
+                    />
+                  ) : (
+                    <FormPersonilAssignScheduleTeam
+                      setShowModal={setShowModal}
+                      data={data}
+                      setChange={SetChange}
+                    />
+                  )
+                ) : (
+                  <FormAssignScheduleTeam
+                    setShowModal={setShowModal}
+                    data={data}
+                    setChange={SetChange}
+                  />
+                )}
               </div>
             </div>
           </div>

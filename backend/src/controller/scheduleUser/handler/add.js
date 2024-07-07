@@ -1,30 +1,26 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient({});
 
-const getScheduleTeams = async (request, h) => {
-  let response = "";
+const addScheduleUser = async (request, h) => {
+  const { userId, scheduleId } = request.payload;
   let result = "";
+  let response = "";
 
   try {
-    const { scheduleId } = request.query || undefined;
-
-    result = await prisma.scheduleTeam.findMany({
-      include: {
-        team: true,
-      },
-      where: {
+    result = await prisma.scheduleUser.create({
+      data: {
+        userId,
         scheduleId,
       },
-      orderBy: { id: "desc" },
     });
 
     response = h.response({
-      code: 200,
-      status: "OK",
-      data: result,
+      code: 201,
+      status: "Created",
+      message: "successfully created schedule",
     });
 
-    response.code(200);
+    response.code(201);
   } catch (err) {
     response = h.response({
       code: 400,
@@ -36,10 +32,9 @@ const getScheduleTeams = async (request, h) => {
 
     console.log(err);
   }
-
   return response;
 };
 
 module.exports = {
-  getScheduleTeams,
+  addScheduleUser,
 };

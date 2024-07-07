@@ -100,7 +100,7 @@ export const ScheduleTable = ({ showModal, search, page, typePage }) => {
         {getSchedules ? (
           <table className="items-center bg-transparent w-full border-collapse overflow-x-auto">
             <thead>
-              <tr className="border-b-2 border-black">
+              <tr className="border-b-2 border-background">
                 <th className="px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-left">
                   Jam
                 </th>
@@ -108,11 +108,15 @@ export const ScheduleTable = ({ showModal, search, page, typePage }) => {
                   Tanggal
                 </th>
                 <th className="px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-left">
-                  Tim
-                </th>
-                <th className="px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-left">
                   Nama Kegiatan
                 </th>
+                <th className="px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-center">
+                  Tim
+                </th>
+                <th className="px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-center">
+                  Personil
+                </th>
+
                 <th className="px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-center">
                   Link atau Undangan
                 </th>
@@ -139,24 +143,79 @@ export const ScheduleTable = ({ showModal, search, page, typePage }) => {
                     {moment(item.deadline).locale("id").format("MMMM Do YYYY")}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left ">
+                    {item.name}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left ">
                     {typePage == "dashboard" ? (
-                      <></>
+                      <div className="flex flex-wrap gap-3">
+                        {item.scheduleTeam.map((team, index) =>
+                          index != item.scheduleTeam.length - 1 ? (
+                            <p>{team?.team?.name},</p>
+                          ) : (
+                            <p>{team?.team?.name}</p>
+                          )
+                        )}
+                      </div>
                     ) : (
-                      <button
-                        className="bg-green-300 rounded-full w-[24px] h-[24px] font-bold flex items-center justify-center"
-                        onClick={() => {
-                          setdataSchedule(item);
-                          setModalEdit(true);
-                          setTypePopup("assign");
-                        }}
-                      >
-                        <IoMdPersonAdd />
-                      </button>
+                      <div className="flex justify-between">
+                        <div className="flex flex-wrap gap-3">
+                          {item.scheduleTeam.map((team, index) =>
+                            index != item.scheduleTeam.length - 1 ? (
+                              <p>{team?.team?.name},</p>
+                            ) : (
+                              <p>{team?.team?.name}</p>
+                            )
+                          )}
+                        </div>
+                        <button
+                          className="bg-green-300 rounded-full w-[24px] h-[24px] font-bold flex items-center justify-center"
+                          onClick={() => {
+                            setdataSchedule(item);
+                            setModalEdit(true);
+                            setTypePopup("assign");
+                          }}
+                        >
+                          <IoMdPersonAdd />
+                        </button>
+                      </div>
                     )}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left ">
-                    {item.name}
+                    {typePage == "dashboard" ? (
+                      <div className="flex flex-wrap gap-3">
+                        {item.scheduleUser.map((user, index) =>
+                          index != item.scheduleUser.length - 1 ? (
+                            <p>{user?.user?.nama},</p>
+                          ) : (
+                            <p>{user?.user?.nama}</p>
+                          )
+                        )}
+                      </div>
+                    ) : (
+                      <div className="flex justify-between">
+                        <div className="flex flex-wrap gap-3">
+                          {item.scheduleUser.map((user, index) =>
+                            index != item.scheduleUser.length - 1 ? (
+                              <p>{user?.user?.nama},</p>
+                            ) : (
+                              <p>{user?.user?.nama}</p>
+                            )
+                          )}
+                        </div>
+                        <button
+                          className="bg-green-300 rounded-full w-[24px] h-[24px] font-bold flex items-center justify-center"
+                          onClick={() => {
+                            setdataSchedule(item);
+                            setModalEdit(true);
+                            setTypePopup("personil");
+                          }}
+                        >
+                          <IoMdPersonAdd />
+                        </button>
+                      </div>
+                    )}
                   </td>
+
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center ">
                     {item.keterangan == "online" ? (
                       <a
@@ -204,6 +263,7 @@ export const ScheduleTable = ({ showModal, search, page, typePage }) => {
                       onClick={() => {
                         setdataSchedule(item);
                         setModalEdit(true);
+                        setTypePopup("schedule");
                       }}
                     >
                       <MdEdit className="w-full text-blue-500" />

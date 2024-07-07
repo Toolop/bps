@@ -1,4 +1,14 @@
-const userEntity = (id, username, password, email, nama, teamId, roleId) => {
+const userEntity = (
+  id,
+  username,
+  password,
+  email,
+  nama,
+  teamId,
+  roleId,
+  nip,
+  ttl
+) => {
   return {
     id,
     username,
@@ -7,6 +17,8 @@ const userEntity = (id, username, password, email, nama, teamId, roleId) => {
     nama,
     teamId,
     roleId,
+    nip,
+    ttl,
   };
 };
 module.exports = { userEntity };

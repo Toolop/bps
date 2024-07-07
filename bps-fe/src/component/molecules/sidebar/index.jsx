@@ -36,12 +36,12 @@ const Sidebar = ({ sidebarOpen, handleClick }) => {
       ref={ref}
       className={
         screenSize.width <= 640
-          ? `delay-150 w-3/5 h-screen absolute bg-white  ${
+          ? `delay-150 w-3/5 h-screen absolute bg-white border-r-2	 border-background  ${
               sidebarOpen
                 ? "translate-x-0 shadow-[0_0px_0px_1000000px_rgba(0,0,0,0.50)] "
                 : "-translate-x-full "
             } transition ease-in-out delay-150  p-3 flex flex-col gap-5 z-10 `
-          : `flex  p-3 flex-col gap-3  max-w-[300px]  ${
+          : `flex  p-3 flex-col gap-3  max-w-[300px] border-r-2	 border-background   ${
               isExpand ? "w-[200px]" : "w-[75px]"
             } transition-widht duration-300  
             ease-in ease-in-out relative bg-white`
@@ -73,7 +73,7 @@ const Sidebar = ({ sidebarOpen, handleClick }) => {
             isExpand ? "opacity-100" : "opacity-0 hidden"
           }`}
         >
-          DigiPest
+          WeRAM BPS
         </h6>
       </button>
 

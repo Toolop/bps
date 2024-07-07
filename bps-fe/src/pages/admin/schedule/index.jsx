@@ -16,7 +16,7 @@ const SchedulePage = () => {
     dispatch(routePageName("schedule"));
   }, []);
   return (
-    <div className="flex flex-wrap items-start gap-5 w-full rounded-2xl border border-black p-5 h-fit ">
+    <div className="flex flex-wrap items-start gap-5 w-full rounded-2xl border bg-white p-5 h-fit ">
       <div className=" w-full flex gap-5 flex-wrap items-center justify-between">
         <h5>Schedules management</h5>
         <div className="flex gap-5">

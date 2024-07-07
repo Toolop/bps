@@ -33,18 +33,19 @@ const HeaderTV = ({ handleClick }) => {
   }, [ref]);
 
   return (
-    <div className=" flex justify-between items-center p-2 pr-5 pl-5 w-full">
+    <div className=" flex justify-between items-center p-2 pr-5 pl-5 w-full bg-white">
       <div className="flex gap-3">
         <button className="block sm:hidden" onClick={handleClick}>
           <RxHamburgerMenu className="text-[30px]" />
         </button>
-        <div className="flex items-center justify-center ">
+        <div className="flex items-center justify-center gap-3">
           <img
             src={logoApp}
             className="w-100 max-w-[80px] h-auto hidden md:block"
           />
-          <div className="flex items-center justify-center">
-            <h3 className="text-primary">BPS</h3>
+          <div className="flex flex-col items-start justify-start">
+            <h3 className="">BPS KABUPATEN MUKO MUKO</h3>
+            <h5>Data mencerdaskan bangsa</h5>
           </div>
         </div>
       </div>

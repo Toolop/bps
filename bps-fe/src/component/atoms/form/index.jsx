@@ -147,7 +147,28 @@ const RegisterForm = ({ setShowModal, typePage }) => {
         />
         {errors.name && <p className="text-red-600">Name perlu diisi</p>}
       </div>
-
+      <div className="w-full">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          NIP
+        </label>
+        <input
+          className="border rounded-lg w-full py-3 px-2 text-gray-700 leading-tight focus:invalid:border-pink-500 "
+          {...register("nip", { required: true, maxLength: 80 })}
+          placeholder="nip"
+        />
+        {errors.nip && <p className="text-red-600">NIP perlu diisi</p>}
+      </div>{" "}
+      <div className="w-full">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Tempat Tanggal lahir
+        </label>
+        <input
+          className="border rounded-lg w-full py-3 px-2 text-gray-700 leading-tight focus:invalid:border-pink-500 "
+          {...register("ttl", { required: true, maxLength: 80 })}
+          placeholder="Tempat tanggal lahir"
+        />
+        {errors.ttl && <p className="text-red-600">TTL perlu diisi</p>}
+      </div>
       <div
         className={` ${
           typePage == "admin" ? "flex" : "hidden"
@@ -168,7 +189,6 @@ const RegisterForm = ({ setShowModal, typePage }) => {
           ))}
         </select>
       </div>
-
       <div className="flex w-full flex-col">
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Pilih Tim
@@ -187,7 +207,6 @@ const RegisterForm = ({ setShowModal, typePage }) => {
           ))}
         </select>
       </div>
-
       <div className="w-full mt-3 flex flex-col justify-center items-center">
         {!isLoading ? (
           <button

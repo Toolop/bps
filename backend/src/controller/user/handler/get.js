@@ -23,8 +23,8 @@ const getUsers = async (request, h) => {
       skip: (page - 1) * size,
       take: size,
     });
-    const totalRows = await prisma.user.findMany({});
-    totalPage = Math.ceil(totalRows.length / size);
+    const totalRows = await prisma.user.count({});
+    totalPage = Math.ceil(totalRows / size);
 
     response = h.response({
       code: 200,

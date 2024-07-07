@@ -7,7 +7,8 @@ const { v4: uuidv4 } = require("uuid");
 const prisma = new PrismaClient({});
 
 const addUser = async (request, h) => {
-  const { username, password, email, nama, teamId, roleId } = request.payload;
+  const { username, password, email, nip, ttl, nama, teamId, roleId } =
+    request.payload;
 
   let result = "";
   let response = "";
@@ -32,7 +33,9 @@ const addUser = async (request, h) => {
         email,
         nama,
         teamId,
-        roleId
+        roleId,
+        nip,
+        ttl
       );
 
       result = await prisma.user.create({

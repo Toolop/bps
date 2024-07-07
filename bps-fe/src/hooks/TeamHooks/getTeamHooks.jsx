@@ -28,14 +28,11 @@ export const GetTeamsHooks = (props) => {
 
   const getTeamsData = async () => {
     await axios
-      .get(
-        `${endpoint}/teams?page=${active}&size=${props}&search=${search}}}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
+      .get(`${endpoint}/teams?page=${active}&size=${props}&search=${search}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((res) => {
         setTeams(res.data.data);
         setPaging(res.data);

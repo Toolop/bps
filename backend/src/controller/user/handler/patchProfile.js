@@ -1,14 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
 const { isUserExist } = require("../../../util/user-utils");
-const { userEntityUpdate } = require("../../../entities/user/udpateDeleteUser");
 const bcrypt = require("bcrypt");
 
 const prisma = new PrismaClient({});
 
 const updateUser = async (request, h) => {
   const { id } = request.params;
-  let { username, email, password, nama, teamId, roleId, status, nip, ttl } =
-    request.payload;
+  let { photoProfile } = request.payload;
   let result = "";
   let response = "";
 
@@ -19,34 +17,10 @@ const updateUser = async (request, h) => {
           id: id,
         },
       });
-      if (username == null || !username) {
-        username = existingId.username;
-      }
-      if (email == null || !email) {
-        email = existingId.email;
-      }
-      if (password == null || !password) {
-        password = existingId.password;
-      } else {
-        password = await bcrypt.hash(password, 10);
-      }
-      if (nama == null || !nama) {
-        nama = existingId.nama;
-      }
-      if (teamId == null || !teamId) {
-        teamId = existingId.teamId;
-      }
-      if (roleId == null || !roleId) {
-        roleId = existingId.roleId;
-      }
-      if (nip == null || !nip) {
-        nip = existingId.nip;
-      }
-      if (ttl == null || !ttl) {
-        ttl = existingId.ttl;
-      }
-      if (status != 0 && status != 1) {
-        status = existingId.status;
+
+      if (photoProfile) {
+        const uploadImagePayload = await uploadImage("bps", photoProfile);
+        photoProfile = uploadImagePayload.secure_url;
       }
 
       result = await prisma.user.update({
@@ -54,15 +28,7 @@ const updateUser = async (request, h) => {
           id: id,
         },
         data: {
-          username,
-          email,
-          nama,
-          password,
-          teamId,
-          roleId,
-          status,
-          nip,
-          ttl,
+          photoProfile,
         },
       });
 
@@ -70,7 +36,7 @@ const updateUser = async (request, h) => {
         response = h.response({
           code: 200,
           status: "OK",
-          message: "User has been deleted",
+          message: "User has been edited",
         });
 
         response.code(200);

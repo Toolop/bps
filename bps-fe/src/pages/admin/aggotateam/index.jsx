@@ -17,8 +17,8 @@ const AnggotaTeamPage = () => {
     dispatch(routePageName("anggota"));
   }, []);
   return (
-    <div className="flex flex-wrap items-start gap-5 w-full rounded-2xl border border-black p-5 h-fit ">
-      <div className=" w-full flex gap-5 flex-wrap  items-center justify-between">
+    <div className="flex flex-wrap items-start gap-5 w-full rounded-2xl border  p-5 h-fit bg-white">
+      <div className=" w-full flex gap-5 flex-wrap  items-center justify-between ">
         <h5>Teams management</h5>
         <div className="flex gap-5">
           <select

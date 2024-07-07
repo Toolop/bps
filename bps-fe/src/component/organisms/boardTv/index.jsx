@@ -25,12 +25,12 @@ const BoardTvLayout = () => {
   }, []);
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen bg-background">
       <div className="relative flex h-screen overflow-hidden ">
-        <div className="flex flex-1 flex-col overflow-x-hidden">
+        <div className="flex flex-1 bg-white flex-col overflow-x-hidden">
           <HeaderTV handleClick={toggle} />
 
-          <main className="relative overflow-y-auto">
+          <main className="relative overflow-y-auto bg-background">
             <div className=" lg:ml-[-10px] lg:mt-[-15px]  h-fit p-4 md:p-6 2xl:p-7 overflow-y-auto -z-50 ">
               <Outlet />
             </div>

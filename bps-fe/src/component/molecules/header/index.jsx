@@ -33,7 +33,7 @@ const Header = ({ handleClick }) => {
   }, [ref]);
 
   return (
-    <div className=" flex justify-between items-center p-2 pr-5 pl-5 w-full">
+    <div className=" flex justify-between items-center p-2 pr-5 pl-5 w-full bg-white">
       <div className="flex gap-3">
         <button className="block sm:hidden" onClick={handleClick}>
           <RxHamburgerMenu className="text-[30px]" />
@@ -44,7 +44,7 @@ const Header = ({ handleClick }) => {
             className="w-100 max-w-[80px] h-auto hidden md:block"
           />
           <div className="flex items-center justify-center">
-            <h3 className="text-primary">BPS</h3>
+            <h3 className="text-primary">WeRAM BPS Mukomuko</h3>
           </div>
         </div>
       </div>

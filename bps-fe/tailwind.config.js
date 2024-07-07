@@ -15,6 +15,7 @@ export default {
         primary: "#435FA5",
         "primary-variant": "#408EFD",
         tertiary: "#6574cd",
+        background: "#F3F4F6",
       },
       backgroundImage: {
         login: "url('/public/login.svg')",

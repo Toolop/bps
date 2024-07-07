@@ -19,9 +19,9 @@ export const DashboardTv = () => {
     <div className="flex flex-col gap-5 w-full rounded-2xl ">
       <div className=" w-full flex gap-5 flex-wrap lg:flex-nowrap">
         <div className="h-100 w-full">
-          <div className="w-full h-fit lg:h-full bg-white border border-black  p-6 flex flex-col gap-3 rounded flex-1 ">
+          <div className="w-full h-fit lg:h-full  borderp-6 flex flex-col gap-3 rounded flex-1 ">
             <h3>Kegitan hari ini</h3>
-            <div className="flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center justify-between bg-white flex-wrap gap-3">
               <ScheduleTable
                 showModal={showModal}
                 search={search}

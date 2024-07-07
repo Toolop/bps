@@ -5,6 +5,7 @@ const authRoute = require("../controller/auth/auth-route");
 const scheduleRoute = require("../controller/schedule/schedule-route");
 const scheduleTeamRoute = require("../controller/scheduleTeam/scheduleTeam-route");
 const scheduleType = require("../controller/scheduleType/scheduleType");
+const scheduleUser = require("../controller/scheduleUser/scheduleUser-route");
 
 const routes = [].concat(
   userRoute,
@@ -13,7 +14,8 @@ const routes = [].concat(
   authRoute,
   scheduleRoute,
   scheduleTeamRoute,
-  scheduleType
+  scheduleType,
+  scheduleUser
 );
 
 module.exports = routes;

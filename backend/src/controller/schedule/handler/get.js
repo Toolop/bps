@@ -14,7 +14,16 @@ const getSchedules = async (request, h) => {
 
     result = await prisma.schedule.findMany({
       include: {
-        scheduleTeam: true,
+        scheduleTeam: {
+          include: {
+            team: true,
+          },
+        },
+        scheduleUser: {
+          include: {
+            user: true,
+          },
+        },
       },
       where: {
         scheduleTeam: {
@@ -26,7 +35,7 @@ const getSchedules = async (request, h) => {
       take: size,
     });
     const totalRows = await prisma.schedule.count({});
-    totalPage = Math.ceil(totalRows.length / size);
+    totalPage = Math.ceil(totalRows / size);
 
     response = h.response({
       code: 200,
