@@ -7,7 +7,8 @@ const userEntity = (
   teamId,
   roleId,
   nip,
-  ttl
+  ttl,
+  status
 ) => {
   return {
     id,
@@ -19,6 +20,7 @@ const userEntity = (
     roleId,
     nip,
     ttl,
+    status,
   };
 };
 module.exports = { userEntity };
