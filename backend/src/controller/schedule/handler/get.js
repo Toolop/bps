@@ -44,8 +44,15 @@ const getSchedules = async (request, h) => {
             },
           },
         ],
-
-        deadline: now,
+        where: {
+          deadline: now,
+          name: {
+            contains: search,
+          },
+          keterangan: {
+            contains: status,
+          },
+        },
       },
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * size,
@@ -53,6 +60,33 @@ const getSchedules = async (request, h) => {
     });
     const totalRows = await prisma.schedule.count({});
     totalPage = Math.ceil(totalRows / size);
+
+    if (now == 1) {
+      result.map((item, index) => {
+        var d = new Date();
+        const hourNow = d.getHours();
+        const minuteNow = d.getMinutes();
+        const hour = item.startEvent.split(":")[0];
+        const hourEnd = item.endEvent.split(":")[0];
+        const minute = item.startEvent.split(":")[1];
+        const minuteEnd = item.endEvent.split(":")[1];
+        if (
+          hour >= hourNow &&
+          minute > minuteNow &&
+          hourNow < hourEnd &&
+          minuteNow < minuteEnd
+        ) {
+          item.status = "Sedang Berlangsung";
+          item.statusId = 1;
+        } else if (hour < hourNow && minute < minuteNow) {
+          item.status = "Belum Dimulai";
+          item.statusId = 2;
+        } else if (hourNow > hourEnd && minuteEnd < minuteNow) {
+          item.status = "Selesai";
+          item.statusId = 3;
+        }
+      });
+    }
 
     response = h.response({
       code: 200,

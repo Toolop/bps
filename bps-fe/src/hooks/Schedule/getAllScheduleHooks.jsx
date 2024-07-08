@@ -7,6 +7,8 @@ export const GetAllSchedulesHooks = (props, today) => {
   const [getSchedules, setSchedules] = useState([]);
   const [change, setChange] = useState(false);
   const [paging, setPaging] = useState({});
+  const [status, setStatus] = useState("");
+
   const [active, setActive] = useState(1);
   const [search, setSearch] = useState("");
 
@@ -29,7 +31,7 @@ export const GetAllSchedulesHooks = (props, today) => {
   const getSchedulesData = async () => {
     await axios
       .get(
-        `${endpoint}/all-schedules?page=${active}&size=${props}&search=${search}&now=${today}`,
+        `${endpoint}/all-schedules?page=${active}&size=${props}&search=${search}&now=${today}&status=${status}`,
         {
           headers: {
             Authorization: token,
@@ -48,7 +50,7 @@ export const GetAllSchedulesHooks = (props, today) => {
 
   useEffect(() => {
     getSchedulesData();
-  }, [active, change, search]);
+  }, [active, change, search, status]);
   return {
     getSchedules,
     prev,
@@ -59,5 +61,6 @@ export const GetAllSchedulesHooks = (props, today) => {
     setActive,
     SetChange,
     setSearch,
+    setStatus,
   };
 };

@@ -16,7 +16,14 @@ import { Link } from "react-router-dom";
 import { FaFile } from "react-icons/fa";
 import { BiLogoZoom } from "react-icons/bi";
 
-export const ScheduleTable = ({ showModal, search, page, typePage, today }) => {
+export const ScheduleTable = ({
+  showModal,
+  search,
+  page,
+  typePage,
+  today,
+  status,
+}) => {
   const [dataSchedule, setdataSchedule] = useState({});
   const [typePopup, setTypePopup] = useState("");
   const [modalEdit, setModalEdit] = useState(false);
@@ -28,8 +35,14 @@ export const ScheduleTable = ({ showModal, search, page, typePage, today }) => {
     active,
     setActive,
     SetChange,
+    setStatus,
     setSearch,
   } = GetAllSchedulesHooks(page, today);
+
+  useEffect(() => {
+    setSearch(search);
+    setStatus(status);
+  }, [search, status]);
 
   const onDelete = (id) => {
     Swal.fire({
@@ -121,6 +134,13 @@ export const ScheduleTable = ({ showModal, search, page, typePage, today }) => {
                   Link atau Undangan
                 </th>
                 <th className="px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-left">
+                  Keterangan
+                </th>
+                <th
+                  className={`px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-left ${
+                    today == 1 ? "hidden" : ""
+                  }`}
+                >
                   Keterangan
                 </th>
                 <th

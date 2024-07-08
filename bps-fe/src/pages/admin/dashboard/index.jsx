@@ -11,7 +11,7 @@ const DashboardAdmin = () => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useState("");
-  const [searchEmail, setSearchEmail] = useState("");
+  const [statusActivity, setStatus] = useState("");
   const [value, onChange] = useState(new Date());
 
   useEffect(() => {
@@ -25,7 +25,6 @@ const DashboardAdmin = () => {
             <div className="flex items-center justify-between flex-wrap gap-3">
               <ScheduleTable
                 showModal={showModal}
-                search={search}
                 page={10}
                 today={1}
                 typePage={"dashboard"}
@@ -51,14 +50,14 @@ const DashboardAdmin = () => {
               </div>
               <input
                 type="search"
-                // onChange={(event) => setSeacrh(event.target.value)}
+                onChange={(event) => setSearch(event.target.value)}
                 className="bg-white block w-full p-2 ps-9 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-white"
                 placeholder="Search Name"
               />
             </div>
             <div className="flex gap-5">
               <select
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => setStatus(e.target.value)}
                 className="bg-white text-[#737373] border border-gray-300 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 "
               >
                 <option selected>Pilih Status</option>
@@ -78,6 +77,7 @@ const DashboardAdmin = () => {
             <ScheduleTable
               showModal={showModal}
               search={search}
+              status={statusActivity}
               page={10}
               today={0}
               typePage={"dashboard"}
