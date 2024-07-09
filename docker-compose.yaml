@@ -39,7 +39,8 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - db_data:/var/lib/postgresql/data:rw
+      - db_data:/var/lib/postgresql/data
+
 
   build_fe_BPS:
     image: node:20
