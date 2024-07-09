@@ -23,13 +23,6 @@ const getUsers = async (request, h) => {
               contains: search,
             },
           },
-          {
-            role: {
-              name: {
-                contains: role,
-              },
-            },
-          },
         ],
       },
       skip: (page - 1) * size,
@@ -43,13 +36,6 @@ const getUsers = async (request, h) => {
           {
             nama: {
               contains: search,
-            },
-          },
-          {
-            role: {
-              name: {
-                contains: role,
-              },
             },
           },
         ],

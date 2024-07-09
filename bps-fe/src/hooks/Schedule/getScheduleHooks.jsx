@@ -47,6 +47,8 @@ export const GetSchedulesHooks = (props, today) => {
   };
 
   useEffect(() => {
+    getSchedulesData();
+
     setInterval(() => {
       getSchedulesData();
     }, 60000);

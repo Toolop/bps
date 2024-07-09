@@ -25,7 +25,7 @@ export const FormAssignScheduleTeam = ({ data, setShowModal, setChange }) => {
   useEffect(() => {
     // setRole("petugas");
     // setSearchName(search);
-  }, [name]);
+  }, []);
 
   const submitAssign = async () => {
     setLoading(true);
