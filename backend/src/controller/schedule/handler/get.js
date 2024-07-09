@@ -61,27 +61,30 @@ const getSchedules = async (request, h) => {
     const totalRows = await prisma.schedule.count({});
     totalPage = Math.ceil(totalRows / size);
 
-    if (now == 1) {
+    if (now != 0) {
       result.map((item, index) => {
         var d = new Date();
-        const hourNow = d.getHours();
-        const minuteNow = d.getMinutes();
-        const hour = item.startEvent.split(":")[0];
-        const hourEnd = item.endEvent.split(":")[0];
-        const minute = item.startEvent.split(":")[1];
-        const minuteEnd = item.endEvent.split(":")[1];
-        if (
-          hour >= hourNow &&
-          minute > minuteNow &&
-          hourNow < hourEnd &&
-          minuteNow < minuteEnd
-        ) {
-          item.status = "Sedang Berlangsung";
-          item.statusId = 1;
-        } else if (hour < hourNow && minute < minuteNow) {
+        const hourNow = parseInt(d.getHours());
+        const minuteNow = parseInt(d.getMinutes());
+        const hour = parseInt(item.startEvent.split(":")[0]);
+        const hourEnd = parseInt(item.endEvent.split(":")[0]);
+        const minute = parseInt(item.startEvent.split(":")[1]);
+        const minuteEnd = parseInt(item.endEvent.split(":")[1]);
+        if (hourNow >= hour && hourNow <= hourEnd) {
+          if (minuteNow < minute && hourNow == hour) {
+            item.status = "Belum Dimulai";
+            item.statusId = 2;
+          } else if (minuteNow > minuteEnd && hourNow == hourEnd) {
+            item.status = "Selesai";
+            item.statusId = 3;
+          } else {
+            item.status = "Sedang Berlangsung";
+            item.statusId = 1;
+          }
+        } else if (hourNow < hour) {
           item.status = "Belum Dimulai";
           item.statusId = 2;
-        } else if (hourNow > hourEnd && minuteEnd < minuteNow) {
+        } else if (hourNow > hourEnd) {
           item.status = "Selesai";
           item.statusId = 3;
         }

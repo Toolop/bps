@@ -5,9 +5,11 @@ const getAllSchedules = async (request, h) => {
   let { page, size, now, search, status, date } = request.query;
   let response = "";
   let result = "";
+  let totalRows = 0;
   let totalPage = 0;
 
   try {
+    console.log("halo");
     page = parseInt(page) || 1;
     size = parseInt(size) || 10;
     if (now != 0) {
@@ -15,73 +17,112 @@ const getAllSchedules = async (request, h) => {
     } else {
       now = undefined;
     }
-    result = await prisma.schedule.findMany({
-      include: {
-        scheduleTeam: {
-          include: {
-            team: true,
+    if (!search && !status && date) {
+      result = await prisma.schedule.findMany({
+        include: {
+          scheduleTeam: {
+            include: {
+              team: true,
+            },
+          },
+          scheduleUser: {
+            include: {
+              user: true,
+            },
           },
         },
-        scheduleUser: {
-          include: {
-            user: true,
+        where: {
+          deadline: now,
+          name: {
+            contains: search,
+          },
+          keterangan: {
+            contains: status,
           },
         },
-      },
-      where: {
-        deadline: now,
-        name: {
-          contains: search,
+        orderBy: [
+          {
+            deadline: "desc",
+          },
+          {
+            startEvent: "asc",
+          },
+        ],
+        skip: (page - 1) * size,
+        take: size,
+      });
+      totalRows = await prisma.schedule.count({
+        where: {
+          deadline: now,
+          name: {
+            contains: search,
+          },
+          keterangan: {
+            contains: status,
+          },
         },
-        keterangan: {
-          contains: status,
+      });
+    } else {
+      result = await prisma.schedule.findMany({
+        include: {
+          scheduleTeam: {
+            include: {
+              team: true,
+            },
+          },
+          scheduleUser: {
+            include: {
+              user: true,
+            },
+          },
         },
-      },
-      orderBy: [
-        {
-          deadline: "desc",
+        where: {
+          deadline: now,
         },
-        {
-          startEvent: "asc",
+        orderBy: [
+          {
+            deadline: "desc",
+          },
+          {
+            startEvent: "asc",
+          },
+        ],
+        skip: (page - 1) * size,
+        take: size,
+      });
+      totalRows = await prisma.schedule.count({
+        where: {
+          deadline: now,
         },
-      ],
-      skip: (page - 1) * size,
-      take: size,
-    });
-    const totalRows = await prisma.schedule.count({
-      where: {
-        deadline: now,
-        name: {
-          contains: search,
-        },
-        keterangan: {
-          contains: status,
-        },
-      },
-    });
+      });
+    }
+
     totalPage = Math.ceil(totalRows / size);
 
-    if (now == 1) {
+    if (now != 0) {
       result.map((item, index) => {
         var d = new Date();
-        const hourNow = d.getHours();
-        const minuteNow = d.getMinutes();
-        const hour = item.startEvent.split(":")[0];
-        const hourEnd = item.endEvent.split(":")[0];
-        const minute = item.startEvent.split(":")[1];
-        const minuteEnd = item.endEvent.split(":")[1];
-        if (
-          hour >= hourNow &&
-          minute > minuteNow &&
-          hourNow < hourEnd &&
-          minuteNow < minuteEnd
-        ) {
-          item.status = "Sedang Berlangsung";
-          item.statusId = 1;
-        } else if (hour < hourNow && minute < minuteNow) {
+        const hourNow = parseInt(d.getHours());
+        const minuteNow = parseInt(d.getMinutes());
+        const hour = parseInt(item.startEvent.split(":")[0]);
+        const hourEnd = parseInt(item.endEvent.split(":")[0]);
+        const minute = parseInt(item.startEvent.split(":")[1]);
+        const minuteEnd = parseInt(item.endEvent.split(":")[1]);
+        if (hourNow >= hour && hourNow <= hourEnd) {
+          if (minuteNow < minute && hourNow == hour) {
+            item.status = "Belum Dimulai";
+            item.statusId = 2;
+          } else if (minuteNow > minuteEnd && hourNow == hourEnd) {
+            item.status = "Selesai";
+            item.statusId = 3;
+          } else {
+            item.status = "Sedang Berlangsung";
+            item.statusId = 1;
+          }
+        } else if (hourNow < hour) {
           item.status = "Belum Dimulai";
           item.statusId = 2;
-        } else if (hourNow > hourEnd && minuteEnd < minuteNow) {
+        } else if (hourNow > hourEnd) {
           item.status = "Selesai";
           item.statusId = 3;
         }

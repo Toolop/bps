@@ -27,6 +27,8 @@ export const ScheduleTable = ({
   const [dataSchedule, setdataSchedule] = useState({});
   const [typePopup, setTypePopup] = useState("");
   const [modalEdit, setModalEdit] = useState(false);
+  const token = localStorage.getItem("token");
+
   const {
     getSchedules,
     prev,
@@ -42,7 +44,8 @@ export const ScheduleTable = ({
   useEffect(() => {
     setSearch(search);
     setStatus(status);
-  }, [search, status]);
+    SetChange(showModal);
+  }, [search, status, showModal]);
 
   const onDelete = (id) => {
     Swal.fire({
@@ -56,7 +59,11 @@ export const ScheduleTable = ({
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios
-          .delete(`${endpoint}/schedules/${id}`)
+          .delete(`${endpoint}/schedules/${id}`, {
+            headers: {
+              Authorization: token,
+            },
+          })
           .then(() => {
             Swal.fire({
               title: "Deleted!",
@@ -138,10 +145,10 @@ export const ScheduleTable = ({
                 </th>
                 <th
                   className={`px-6 text-gray-700 align-middle   py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-left ${
-                    today == 1 ? "hidden" : ""
+                    today == 0 ? "hidden" : ""
                   }`}
                 >
-                  Keterangan
+                  Status
                 </th>
                 <th
                   className={`px-6  text-gray-700 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-pre-line font-semibold text-center ${
@@ -295,6 +302,21 @@ export const ScheduleTable = ({
                     >
                       <RiDeleteBin5Line className="w-full text-red-500" />
                     </button>
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left ">
+                    <p
+                      className={`w-fit px-3 py-2 rounded-2xl ${
+                        today == 1 ? "flex" : "hidden"
+                      } ${
+                        item.statusId == 1
+                          ? "bg-yellow-300"
+                          : item.statusId == 2
+                          ? "bg-blue-500 text-white"
+                          : "bg-green-200"
+                      }`}
+                    >
+                      {item.status}
+                    </p>
                   </td>
                 </tr>
               ))}
