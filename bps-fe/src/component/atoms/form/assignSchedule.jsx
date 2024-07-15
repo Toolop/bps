@@ -14,7 +14,7 @@ export const FormAssignScheduleTeam = ({ data, setShowModal, setChange }) => {
   //   const { getUsers, setRole, setSearchName } = GetUsersHooks(40, "petugas");
   //   const { assingedData, SetChange } = GetAssignedHooks(data);
   const { getTeams, prev, next, paging, active, setActive, setSearch } =
-    GetTeamsHooks(199);
+    GetTeamsHooks(999);
   const [isLoading, setLoading] = useState("");
   const [teamId, setteamId] = useState("");
   const [dropdown, setDropDown] = useState(false);

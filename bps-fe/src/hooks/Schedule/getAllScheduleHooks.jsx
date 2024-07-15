@@ -51,9 +51,9 @@ export const GetAllSchedulesHooks = (props, today) => {
   useEffect(() => {
     getSchedulesData();
 
-    setInterval(() => {
-      getSchedulesData();
-    }, 60000);
+    // setInterval(() => {
+    //   getSchedulesData();
+    // }, 60000);
   }, [active, change, search, status]);
   return {
     getSchedules,

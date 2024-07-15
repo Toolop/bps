@@ -44,7 +44,7 @@ const HeaderTV = ({ handleClick }) => {
             className="w-100 max-w-[80px] h-auto hidden md:block"
           />
           <div className="flex flex-col items-start justify-start">
-            <h3 className="">BPS KABUPATEN MUKO MUKO</h3>
+            <h3 className="">WeRAM BPS Mukomuko</h3>
             <h5>Data mencerdaskan bangsa</h5>
           </div>
         </div>
